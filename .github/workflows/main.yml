@@ -1,37 +1,37 @@
-name: github action demo pipeline
+name: ETL Pipeline
 
 on:
-  push:
-    branches:
-      - main
+  push:
+    branches:
+      - main
 
 jobs:
-  extract-job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  extract-data-job:
+    runs-on: ubuntu-latest
 
-      - name: Run extract.py
-        run: python extract.py
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-  transform-job:
+      - name: Run extract.py
+        run: python extract.py
 
-    runs-on: ubuntu-latest
-    needs: extract-job
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  transform-data-job:
+    runs-on: ubuntu-latest
 
-      - name: Run transform.py
-        run: python transform.py
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-  load-job:
-    runs-on: ubuntu-latest
-    needs: transform-job
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Run transform_data.py
+        run: python transform_data.py
 
-      - name: Run load.py
-        run: python load.py
+  load-data-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run load_data.py
+        run: python load_data.py
